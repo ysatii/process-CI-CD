@@ -1,0 +1,15 @@
+- name: Copy PostgreSQL 11 RPMs to /tmp
+  become: yes
+  copy:
+    src: "files/{{ item }}"
+    dest: "/tmp/{{ item }}"
+    mode: '0644'
+  loop:
+    - postgresql11-server-11.22-1PGDG.rhel7.x86_64.rpm
+    - postgresql11-11.22-1PGDG.rhel7.x86_64.rpm
+    - postgresql11-libs-11.22-1PGDG.rhel7.x86_64.rpm
+
+- name: Install PostgreSQL 11 packages from local RPMs
+  become: yes
+  shell: >
+    yum -y localinstall /tmp/postgresql11-libs-11.22-1PGDG.rhel7.x86_64.rpm /tmp/postgresql11-11.22-1PGDG.rhel7.x86_64.rpm /tmp/postgresql11-server-11.22-1PGDG.rhel7.x86_64.rpm

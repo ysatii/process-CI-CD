@@ -1,0 +1,21 @@
+- name: Remove default CentOS .repo files (excluding vault)
+  become: yes
+  file:
+    path: "/etc/yum.repos.d/{{ item }}"
+    state: absent
+  loop:
+    - CentOS-Base.repo
+    - CentOS-Linux-AppStream.repo
+    - CentOS-Linux-BaseOS.repo
+    - CentOS-Linux-Extras.repo
+    - CentOS-Linux-PowerTools.repo
+    - CentOS-Linux-Updates.repo
+    - CentOS-Updates.repo
+    - CentOS-Extras.repo
+  ignore_errors: yes
+
+- name: Clean and refresh yum cache (final try)
+  become: yes
+  shell: |
+    yum clean all
+    yum makecache

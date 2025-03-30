@@ -1,0 +1,5 @@
+- name: Install PostgreSQL 11 server from official RPM
+  become: yes
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/postgresql11-server-11.22-1PGDG.rhel7.x86_64.rpm
+    state: present

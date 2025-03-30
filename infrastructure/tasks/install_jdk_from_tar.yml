@@ -1,0 +1,29 @@
+- name: Copy OpenJDK tarball to remote
+  become: yes
+  copy:
+    src: files/openjdk-21.0.2_linux-x64_bin.tar.gz
+    dest: /opt/openjdk-21.0.2_linux-x64_bin.tar.gz
+    mode: '0644'
+
+- name: Extract JDK to /opt/
+  become: yes
+  unarchive:
+    src: /opt/openjdk-21.0.2_linux-x64_bin.tar.gz
+    dest: /opt/
+    remote_src: yes
+
+- name: Symlink java to /usr/bin/java
+  become: yes
+  file:
+    src: /opt/jdk-21.0.2/bin/java
+    dest: /usr/bin/java
+    state: link
+    force: yes
+
+- name: Symlink javac to /usr/bin/javac
+  become: yes
+  file:
+    src: /opt/jdk-21.0.2/bin/javac
+    dest: /usr/bin/javac
+    state: link
+    force: yes
