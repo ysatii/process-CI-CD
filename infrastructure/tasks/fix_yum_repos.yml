@@ -1,0 +1,20 @@
+- name: Replace CentOS mirrors with vault.centos.org
+  become: yes
+  replace:
+    path: /etc/yum.repos.d/CentOS-Base.repo
+    regexp: '^mirrorlist=.*$'
+    replace: '# \g<0>'
+  notify: Refresh yum cache
+
+- name: Set baseurl to vault.centos.org
+  become: yes
+  replace:
+    path: /etc/yum.repos.d/CentOS-Base.repo
+    regexp: '^#baseurl=http://mirror.centos.org/centos/\$releasever/.*/\$basearch/'
+    replace: 'baseurl=http://vault.centos.org/7.9.2009/base/$basearch/'
+  notify: Refresh yum cache
+
+- name: Refresh yum cache
+  become: yes
+  command: yum makecache
+  listen: Refresh yum cache
