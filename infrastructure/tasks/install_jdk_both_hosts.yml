@@ -1,0 +1,29 @@
+- name: Copy OpenJDK tarball to remote hosts
+  become: yes
+  copy:
+    src: files/openjdk.tar.gz
+    dest: /opt/openjdk.tar.gz
+    mode: '0644'
+
+- name: Extract JDK to /opt/jdk
+  become: yes
+  unarchive:
+    src: /opt/openjdk.tar.gz
+    dest: /opt/
+    remote_src: yes
+
+- name: Rename JDK directory to /opt/jdk
+  become: yes
+  shell: |
+    JDKDIR=$(ls -d /opt/jdk-* | head -n1)
+    [ "$JDKDIR" != "/opt/jdk" ] && mv "$JDKDIR" /opt/jdk || true
+  args:
+    executable: /bin/bash
+
+- name: Set permissions for /opt/jdk
+  become: yes
+  file:
+    path: /opt/jdk
+    owner: nexus
+    group: nexus
+    recurse: yes

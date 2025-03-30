@@ -28,11 +28,11 @@
       gpgcheck=1
       gpgkey=http://vault.centos.org/7.9.2009/os/$basearch/RPM-GPG-KEY-CentOS-7
 
-- name: Clean and refresh yum cache
-  become: yes
-  shell: |
-    yum clean all
-    yum makecache
+#- name: Clean and refresh yum cache
+#  become: yes
+#  shell: |
+#    yum clean all
+#    yum makecache
 
 - name: Install OpenJDK 11
   become: yes

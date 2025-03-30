@@ -1,4 +1,46 @@
 ---
+- hosts: all
+  become: true
+  vars:
+    java_tarball: openjdk.tar.gz
+    java_install_dir: /opt/jdk
+  tasks:
+    - import_tasks: tasks/install_jdk_final.yml
+
+
+    - name: Copy OpenJDK tarball
+      copy:
+        src: "files/{{ java_tarball }}"
+        dest: "/tmp/{{ java_tarball }}"
+        mode: '0644'
+
+    - name: Extract JDK to /opt
+      unarchive:
+        src: "/tmp/{{ java_tarball }}"
+        dest: /opt
+        remote_src: true
+
+    - name: Find extracted JDK directory
+      become: true
+      find:
+        paths: /opt
+        file_type: directory
+        patterns: 'jdk*'
+      register: jdk_dirs
+
+    - name: Rename JDK directory to /opt/jdk
+      become: true
+      command: mv {{ item.path }} /opt/jdk
+      when: item.path != "/opt/jdk"
+      loop: "{{ jdk_dirs.files }}"
+
+    - name: Set permissions on JDK
+      file:
+        path: /opt/jdk
+        owner: root
+        group: root
+        recurse: yes
+
 - name: Get OpenJDK installed
   hosts: sonarqube
   pre_tasks:
@@ -127,100 +169,20 @@
     - name: Reboot VM
       reboot:
 
-- name: Get Sonarqube installed
-  hosts: sonarqube
-  vars: 
-    ansible_user: "{{ sonarqube_db_user }}"
-  tasks:
-    - name: Get distrib ZIP
-      get_url:
-        url: "{{ sonar_download_url }}"
-        dest: "/tmp/{{ sonar_version_directory }}.zip"
-        validate_certs: false
-
-    - name: Unzip Sonar
-      become: true
-      unarchive:
-        src: "/tmp/{{ sonar_version_directory }}.zip"
-        dest: /usr/local/
-        copy: false
-        owner: "{{ sonarqube_db_user }}"
-        group: "{{ sonarqube_db_user }}"
-        creates: /usr/local/sonar/COPYING
-    
-    - name: Ensure /usr/local/sonar exists
-      become: yes
-      file:
-        path: /usr/local/sonar
-        state: directory
-        mode: '0755'
-
-    - name: Move Sonar into place.
-      become: true
-      copy:
-        src: /usr/local/{{ sonar_version_directory }}/
-        dest: /usr/local/sonar/
-        owner: "{{ sonarqube_db_user }}"
-        group: "{{ sonarqube_db_user }}"
-        remote_src: true
-
-    - name: Configure SonarQube JDBC settings for PostgreSQL.
-      lineinfile:
-        dest: /usr/local/sonar/conf/sonar.properties
-        regexp: "{{ item.regexp }}"
-        line: "{{ item.line }}"
-      with_items:
-        - regexp: "^sonar.jdbc.username"
-          line: "sonar.jdbc.username={{ sonarqube_db_user }}"
-        - regexp: "^sonar.jdbc.password"
-          line: "sonar.jdbc.password={{ sonarqube_db_password }}"
-        - regexp: "^sonar.jdbc.url"
-          line: "sonar.jdbc.url=jdbc:postgresql://localhost:{{ sonar_db_port }}/{{ sonarqube_db_name }}?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance"
-        - regexp: "^sonar.web.context"
-          line: "sonar.web.context={{ sonar_web_context }}"
-    
-    - name: Generate wrapper.conf
-      template:
-        src: wrapper.conf.j2
-        dest: /usr/local/sonar/conf/wrapper.conf
-        mode: 0644
-
-    - name: Symlink sonar bin.
-      become: true
-      file:
-        src: /usr/local/sonar/bin/linux-x86-64/sonar.sh
-        dest: /usr/bin/sonar
-        state: link
-      register: sonar_symlink
-
-    - name: Copy SonarQube systemd unit file into place (for systemd systems).
-      become: true
-      template:
-        src: sonar.unit.j2
-        dest: /etc/systemd/system/sonar.service
-        owner: root
-        group: root
-        mode: 0755
-
-    - name: Ensure Sonar is running and set to start on boot.
-      become: true
-      service:
-        name: sonar
-        state: restarted
-        enabled: true
-
-    - name: Allow Sonar time to build on first start.
-      pause:
-        seconds: 180
-      when: sonar_symlink.changed
-      tags: ['skip_ansible_lint']
-
-    - name: Make sure Sonar is responding on the configured port.
-      wait_for:
-        port: 9000
-        delay: 3
-        timeout: 300
 - name: Get Nexus installed
+  pre_tasks:
+    - name: Remove all default CentOS .repo files (except vault)
+      become: yes
+      shell: |
+        find /etc/yum.repos.d/ -type f -name "*.repo" ! -name "CentOS-Vault.repo" -delete
+
+    - name: Remove centos-release package (blocks repo cleanup)
+      become: yes
+      yum:
+        name: centos-release
+        state: absent
+      ignore_errors: yes
+
   hosts: nexus
   pre_tasks:
     - name: Create Nexus group
@@ -228,18 +190,14 @@
       group:
         name: "{{ nexus_user_group }}"
         state: present
+
     - name: Create Nexus user
       become: true
       user:
         name: "{{ nexus_user_name }}"
-    #- name: Install JDK
-    #  become: true
-    #  package:
-    #    name: [java-1.8.0-openjdk, java-1.8.0-openjdk-devel]
-    #    state: present
+
   tasks:
     - import_tasks: tasks/fix_yum_repos.yml
-    - import_tasks: tasks/install_jdk_from_tar.yml
 
     - name: Create Nexus directories
       become: true
@@ -272,9 +230,15 @@
         dest: "{{ nexus_directory_package }}"
         src: "{{ nexus_directory_package }}/nexus-{{ nexus_version }}.tar.gz"
 
+    - name: Remove existing nexus directory if needed
+      become: true
+      file:
+        path: "{{ nexus_directory_home }}"
+        state: absent
+        force: true
+
     - name: Link to Nexus Directory
       become: true
-      become_user: "{{ nexus_user_name }}"
       file:
         dest: "{{ nexus_directory_home }}"
         src: "{{ nexus_directory_package }}/nexus-{{ nexus_version }}"
@@ -282,16 +246,15 @@
 
     - name: Add NEXUS_HOME for Nexus user
       become: true
-      become_user: "{{ nexus_user_name }}"
       lineinfile:
         create: yes
         dest: "/home/{{ nexus_user_name }}/.bashrc"
         insertafter: EOF
         line: "export NEXUS_HOME={{ nexus_directory_home }}"
 
+
     - name: Add run_as_user to Nexus.rc
       become: true
-      become_user: "{{ nexus_user_name }}"
       lineinfile:
         create: yes
         dest: "{{ nexus_directory_home }}/bin/nexus.rc"

@@ -14,8 +14,8 @@
     - CentOS-Extras.repo
   ignore_errors: yes
 
-- name: Clean and refresh yum cache (final try)
-  become: yes
-  shell: |
-    yum clean all
-    yum makecache
+# - name: Clean and refresh yum cache (final try)
+#  become: yes
+#  shell: |
+#    yum clean all
+#    yum makecache

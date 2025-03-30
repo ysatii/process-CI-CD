@@ -1,0 +1,17 @@
+- name: Remove all default CentOS .repo files (except vault)
+  become: yes
+  shell: |
+    find /etc/yum.repos.d/ -type f -name "*.repo" ! -name "CentOS-Vault.repo" -delete
+
+- name: Remove centos-release package (blocks repo cleanup)
+  become: yes
+  yum:
+    name: centos-release
+    state: absent
+  ignore_errors: yes
+
+#- name: Clean and refresh yum cache
+#  become: yes
+#  shell: |
+#    yum clean all
+#    yum makecache
