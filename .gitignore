@@ -45,3 +45,5 @@ files/*.rpm
 # JDK архивы и другие временные установщики
 files/*.tar.gz
 files/*.zip
+infrastructure/files/openjdk*.tar.gz
+
