@@ -68,13 +68,24 @@ sonar-scanner --version
 22:39:08.733 INFO  Java 17.0.13 Eclipse Adoptium (64-bit)
 22:39:08.733 INFO  Linux 3.10.0-1160.119.1.el7.x86_64 amd64
 ```
-
+Создадим проект  
 ![рис 4](https://github.com/ysatii/process-CI-CD/blob/main/img/img_4.jpg)  
 ![рис 5](https://github.com/ysatii/process-CI-CD/blob/main/img/img_5.jpg)  
 ![рис 6](https://github.com/ysatii/process-CI-CD/blob/main/img/img_6.jpg)  
+
+Унас есть ошибки
 ![рис 7](https://github.com/ysatii/process-CI-CD/blob/main/img/img_7.jpg)  
 ![рис 8](https://github.com/ysatii/process-CI-CD/blob/main/img/img_8.jpg)  
 ![рис 9](https://github.com/ysatii/process-CI-CD/blob/main/img/img_9.jpg)  
+
+ошибка более подробно, исправим ее и запустим свнова команду
+```
+sonar-scanner \
+   -Dsonar.projectKey=test \
+   -Dsonar.sources=. \
+   -Dsonar.host.url=http://62.84.124.91:9000 \
+   -Dsonar.login=a87256b19b5e039722df271df56af72154cfb359
+```
 
 ![рис 10](https://github.com/ysatii/process-CI-CD/blob/main/img/img_10.jpg)  
 ![рис 11](https://github.com/ysatii/process-CI-CD/blob/main/img/img_11.jpg)  
@@ -82,6 +93,8 @@ sonar-scanner --version
 ![рис 13](https://github.com/ysatii/process-CI-CD/blob/main/img/img_13.jpg)  
 ![рис 14](https://github.com/ysatii/process-CI-CD/blob/main/img/img_14.jpg)  
 ![рис 15](https://github.com/ysatii/process-CI-CD/blob/main/img/img_15.jpg)  
+
+Отчетыы указывают что ошибка исправлена!
 
 ## Знакомство с Nexus
 
@@ -98,6 +111,28 @@ sonar-scanner --version
 2. В него же загрузите такой же артефакт, но с version: 8_102.
 3. Проверьте, что все файлы загрузились успешно.
 4. В ответе пришлите файл `maven-metadata.xml` для этого артефекта.
+
+
+http://51.250.92.164:8081/repository/maven-public/netology/java/maven-metadata.xml
+
+```
+<metadata modelVersion="1.1.0">
+<groupId>netology</groupId>
+<artifactId>java</artifactId>
+<versioning>
+<latest>8_282</latest>
+<release>8_282</release>
+<versions>
+<version>8_102</version>
+<version>8_282</version>
+</versions>
+<lastUpdated>20250403234932</lastUpdated>
+</versioning>
+</metadata>
+```
+Изменились ссылки на скачаивание файлов!
+md5 sha1  одинкавы!
+
 
 ### Знакомство с Maven
 
