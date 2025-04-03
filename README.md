@@ -19,17 +19,19 @@
 ```
 ![рис 1](https://github.com/ysatii/process-CI-CD/blob/main/img/img_1.jpg)  
 
-2. Проверим работоспособность Nexus
+
+2. Проверим работоспособность Nexus  
 ![рис 2](https://github.com/ysatii/process-CI-CD/blob/main/img/img_2.jpg)  
 
-2. Проверим работоспособность SonarQube
+3. Проверим работоспособность SonarQube 
 ![рис 3](https://github.com/ysatii/process-CI-CD/blob/main/img/img_3.jpg)  
-
 
 
 Часть репозиториев centos7 перестал использовать в 2024 году поэтому немного изменим скрипт 
 добавим файфалы java и pgsql в папку files 
 и ссылки на внешний репозиторий при желании данную работу моно помлностью повторить!
+
+
 
 ## Знакомоство с SonarQube
 
@@ -44,6 +46,36 @@
 7. Исправьте ошибки, которые он выявил, включая warnings.
 8. Запустите анализатор повторно — проверьте, что QG пройдены успешно.
 9. Сделайте скриншот успешного прохождения анализа, приложите к решению ДЗ.
+
+## Знакомоство с SonarQube Выполнение задания
+mkdir -p ~/tools && cd ~/tools
+curl -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.0.2.4839-linux-x64.zip
+sudo yum install -y unzip
+unzip sonar-scanner-cli-7.0.2.4839-linux-x64.zip
+echo 'export PATH=$HOME/tools/sonar-scanner-7.0.2.4839-linux-x64/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+sonar-scanner --version
+
+22:39:08.711 INFO  Scanner configuration file: /home/lamer/tools/sonar-scanner-7.0.2.4839-linux-x64/conf/sonar-scanner.properties
+22:39:08.714 INFO  Project root configuration file: NONE
+22:39:08.731 INFO  SonarScanner CLI 7.0.2.4839
+22:39:08.733 INFO  Java 17.0.13 Eclipse Adoptium (64-bit)
+22:39:08.733 INFO  Linux 3.10.0-1160.119.1.el7.x86_64 amd64
+
+
+![рис 4](https://github.com/ysatii/process-CI-CD/blob/main/img/img_4.jpg)  
+![рис 5](https://github.com/ysatii/process-CI-CD/blob/main/img/img_5.jpg)  
+![рис 6](https://github.com/ysatii/process-CI-CD/blob/main/img/img_6.jpg)  
+![рис 7](https://github.com/ysatii/process-CI-CD/blob/main/img/img_7.jpg)  
+![рис 8](https://github.com/ysatii/process-CI-CD/blob/main/img/img_8.jpg)  
+![рис 9](https://github.com/ysatii/process-CI-CD/blob/main/img/img_9.jpg)  
+
+![рис 10](https://github.com/ysatii/process-CI-CD/blob/main/img/img_10.jpg)  
+![рис 11](https://github.com/ysatii/process-CI-CD/blob/main/img/img_11.jpg)  
+![рис 12](https://github.com/ysatii/process-CI-CD/blob/main/img/img_12.jpg)  
+![рис 13](https://github.com/ysatii/process-CI-CD/blob/main/img/img_13.jpg)  
+![рис 14](https://github.com/ysatii/process-CI-CD/blob/main/img/img_14.jpg)  
+![рис 15](https://github.com/ysatii/process-CI-CD/blob/main/img/img_15.jpg)  
 
 ## Знакомство с Nexus
 
