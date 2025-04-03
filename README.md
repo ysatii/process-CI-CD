@@ -48,20 +48,26 @@
 9. Сделайте скриншот успешного прохождения анализа, приложите к решению ДЗ.
 
 ## Знакомоство с SonarQube Выполнение задания
+```sh
 mkdir -p ~/tools && cd ~/tools
 curl -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.0.2.4839-linux-x64.zip
 sudo yum install -y unzip
 unzip sonar-scanner-cli-7.0.2.4839-linux-x64.zip
 echo 'export PATH=$HOME/tools/sonar-scanner-7.0.2.4839-linux-x64/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
-sonar-scanner --version
+```
 
+```sh
+sonar-scanner --version
+```
+ответ
+```
 22:39:08.711 INFO  Scanner configuration file: /home/lamer/tools/sonar-scanner-7.0.2.4839-linux-x64/conf/sonar-scanner.properties
 22:39:08.714 INFO  Project root configuration file: NONE
 22:39:08.731 INFO  SonarScanner CLI 7.0.2.4839
 22:39:08.733 INFO  Java 17.0.13 Eclipse Adoptium (64-bit)
 22:39:08.733 INFO  Linux 3.10.0-1160.119.1.el7.x86_64 amd64
-
+```
 
 ![рис 4](https://github.com/ysatii/process-CI-CD/blob/main/img/img_4.jpg)  
 ![рис 5](https://github.com/ysatii/process-CI-CD/blob/main/img/img_5.jpg)  
