@@ -34,3 +34,14 @@ telegram_export*/**
 # Custom folders to ignore
 files/openjdk*.tar.gz
 files/postgresql*.rpm
+
+# Исключаем все локальные RPM-пакеты
+files/*.rpm
+
+# Или более точно — если они в подпапках:
+**/*.rpm
+
+
+# JDK архивы и другие временные установщики
+files/*.tar.gz
+files/*.zip

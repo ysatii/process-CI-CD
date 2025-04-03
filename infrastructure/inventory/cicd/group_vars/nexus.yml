@@ -20,3 +20,4 @@ nexus_java_heap_size: 1200M
 nexus_java_max_direct_memory: 2G
 nexus_service_start_on_boot: true
 nexus_configuration_disk_free_space_limit: ~
+nexus_java_home: /opt/openjdk8
