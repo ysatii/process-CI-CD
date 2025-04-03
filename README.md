@@ -18,6 +18,9 @@
  ansible-playbook -i inventory/cicd/hosts.yml site.yml
 ```
 
+2. 
+
+
 часть репозиториев centos7 перестал использовать в 2024 году поэтому немного изменим скрипт 
 добавим фа  йфалы java и pgsql в папку files 
 
