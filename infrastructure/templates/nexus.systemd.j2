@@ -7,6 +7,7 @@ Type=forking
 User={{ nexus_user_name }}
 Group={{ nexus_user_group }}
 LimitNOFILE={{ nexus_ulimit }}
+Environment=INSTALL4J_JAVA_HOME={{ nexus_java_home }}
 ExecStart={{ nexus_directory_home }}/bin/nexus start
 ExecStop={{ nexus_directory_home }}/bin/nexus stop
 Restart=on-abort
