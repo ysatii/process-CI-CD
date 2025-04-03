@@ -1,0 +1,36 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Ansible-specific
+*.retry
+*.log
+*.orig
+*.bak
+*.swp
+
+# SSH keys, sensitive creds
+*.pem
+*.key
+*.crt
+
+# Archives & installables
+*.tar.gz
+*.zip
+*.rpm
+
+# Exported Telegram backups or other user exports
+export*/**
+telegram_export*/**
+
+# IDE/editor settings
+.idea/
+.vscode/
+
+# Custom folders to ignore
+files/openjdk*.tar.gz
+files/postgresql*.rpm
