@@ -17,12 +17,19 @@
 ```sh 
  ansible-playbook -i inventory/cicd/hosts.yml site.yml
 ```
+![рис 1](https://github.com/ysatii/process-CI-CD/blob/main/img/img_1.jpg)  
 
-2. 
+2. Проверим работоспособность Nexus
+![рис 2](https://github.com/ysatii/process-CI-CD/blob/main/img/img_2.jpg)  
+
+2. Проверим работоспособность SonarQube
+![рис 3](https://github.com/ysatii/process-CI-CD/blob/main/img/img_3.jpg)  
 
 
-часть репозиториев centos7 перестал использовать в 2024 году поэтому немного изменим скрипт 
-добавим фа  йфалы java и pgsql в папку files 
+
+Часть репозиториев centos7 перестал использовать в 2024 году поэтому немного изменим скрипт 
+добавим файфалы java и pgsql в папку files 
+и ссылки на внешний репозиторий при желании данную работу моно помлностью повторить!
 
 ## Знакомоство с SonarQube
 
