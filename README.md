@@ -113,9 +113,9 @@ sonar-scanner \
 4. В ответе пришлите файл `maven-metadata.xml` для этого артефекта.
 
 
-http://51.250.92.164:8081/repository/maven-public/netology/java/maven-metadata.xml
+https://github.com/ysatii/process-CI-CD/blob/main/maven-metadata.xml
 
-
+Содержимое maven-metadata.xml
 ```
 <metadata modelVersion="1.1.0">
 <groupId>netology</groupId>
@@ -134,6 +134,23 @@ http://51.250.92.164:8081/repository/maven-public/netology/java/maven-metadata.x
 Изменились ссылки на скачаивание файлов!
 md5 sha1  одинкавы!
 
+![рис 16](https://github.com/ysatii/process-CI-CD/blob/main/img/img_16.jpg)  
+![рис 17](https://github.com/ysatii/process-CI-CD/blob/main/img/img_17.jpg) 
+![рис 18](https://github.com/ysatii/process-CI-CD/blob/main/img/img_18.jpg)  
+![рис 19](https://github.com/ysatii/process-CI-CD/blob/main/img/img_19.jpg)  
+![рис 20](https://github.com/ysatii/process-CI-CD/blob/main/img/img_20.jpg) 
+
+![рис 21](https://github.com/ysatii/process-CI-CD/blob/main/img/img_21.jpg)  
+![рис 22](https://github.com/ysatii/process-CI-CD/blob/main/img/img_22.jpg)  
+![рис 23](https://github.com/ysatii/process-CI-CD/blob/main/img/img_23.jpg)  
+![рис 24](https://github.com/ysatii/process-CI-CD/blob/main/img/img_24.jpg)  
+![рис 25](https://github.com/ysatii/process-CI-CD/blob/main/img/img_25.jpg)  
+
+![рис 26](https://github.com/ysatii/process-CI-CD/blob/main/img/img_26.jpg)  
+![рис 27](https://github.com/ysatii/process-CI-CD/blob/main/img/img_27.jpg)  
+![рис 28](https://github.com/ysatii/process-CI-CD/blob/main/img/img_28.jpg)  
+![рис 29](https://github.com/ysatii/process-CI-CD/blob/main/img/img_29.jpg)  
+ 
 
 ### Знакомство с Maven
 
