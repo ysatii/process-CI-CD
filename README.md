@@ -132,22 +132,37 @@ https://github.com/ysatii/process-CI-CD/blob/main/maven-metadata.xml
 </metadata>
 ```
 Изменились ссылки на скачаивание файлов!
-md5 sha1  одинкавы!
+md5 sha1  одинаковы!
 
+авторизировались
 ![рис 16](https://github.com/ysatii/process-CI-CD/blob/main/img/img_16.jpg)  
+
+скопировали адрес репозитория
 ![рис 17](https://github.com/ysatii/process-CI-CD/blob/main/img/img_17.jpg) 
+
+залили первый файл версия 8_102
 ![рис 18](https://github.com/ysatii/process-CI-CD/blob/main/img/img_18.jpg)  
 ![рис 19](https://github.com/ysatii/process-CI-CD/blob/main/img/img_19.jpg)  
+
+Файлы в репозитории
 ![рис 20](https://github.com/ysatii/process-CI-CD/blob/main/img/img_20.jpg) 
 
+контрольные суммы версии 8_102
 ![рис 21](https://github.com/ysatii/process-CI-CD/blob/main/img/img_21.jpg)  
 ![рис 22](https://github.com/ysatii/process-CI-CD/blob/main/img/img_22.jpg)  
+
+
 ![рис 23](https://github.com/ysatii/process-CI-CD/blob/main/img/img_23.jpg)  
 ![рис 24](https://github.com/ysatii/process-CI-CD/blob/main/img/img_24.jpg)  
+
+файл версии 8_282
 ![рис 25](https://github.com/ysatii/process-CI-CD/blob/main/img/img_25.jpg)  
 
+контрольные суммы версии 8_282
 ![рис 26](https://github.com/ysatii/process-CI-CD/blob/main/img/img_26.jpg)  
 ![рис 27](https://github.com/ysatii/process-CI-CD/blob/main/img/img_27.jpg)  
+
+файл maven-metadata.xml
 ![рис 28](https://github.com/ysatii/process-CI-CD/blob/main/img/img_28.jpg)  
 ![рис 29](https://github.com/ysatii/process-CI-CD/blob/main/img/img_29.jpg)  
  
