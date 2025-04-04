@@ -115,6 +115,7 @@ sonar-scanner \
 
 http://51.250.92.164:8081/repository/maven-public/netology/java/maven-metadata.xml
 
+
 ```
 <metadata modelVersion="1.1.0">
 <groupId>netology</groupId>
