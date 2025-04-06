@@ -218,7 +218,7 @@ Default locale: ru_RU, platform encoding: UTF-8
 OS name: "linux", version: "3.10.0-1160.119.1.el7.x86_64", arch: "amd64", family: "unix"
 ```
 
-5.````
+5.Заберите директорию [mvn](./mvn) с pom.
 ```sh
 mkdir mvn
 nano pom.xml
