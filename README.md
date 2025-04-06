@@ -167,7 +167,7 @@ md5 sha1  одинаковы!
 ![рис 29](https://github.com/ysatii/process-CI-CD/blob/main/img/img_29.jpg)  
  
 
-### Знакомство с Maven
+## Знакомство с Maven
 
 ### Подготовка к выполнению
 
@@ -185,6 +185,87 @@ md5 sha1  одинаковы!
 4. В ответе пришлите исправленный файл `pom.xml`.
 
 ---
+
+## Выполнения задания Maven
+### Подготовка к выполнению
+1. Скачаваем дистрибутив [ссылка на дистрибутив](https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz)
+```sh 
+wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+```
+
+2. Разархивирование и установка переменной PATH 
+```sh
+mkdir -p ~/tools && tar -xzf apache-maven-3.9.9-bin.tar.gz -C ~/tools && echo 'export PATH=$HOME/tools/apache-maven-3.9.9/bin:$PATH' >> ~/.bashrc && source ~/.bashrc
+```
+
+3. Удалите из `apache-maven-<version>/conf/settings.xml` упоминание о правиле, отвергающем HTTP- соединение — раздел mirrors —> id: my-repository-http-unblocker. 
+```sh
+/home/lamer/apache-maven-3.9.9
+sed -i '/<id>my-repository-http-unblocker<\/id>/,/<\/mirror>/d' conf/settings.xml
+sed -i '/<mirror>/,/<\/mirror>/d' ~/tools/apache-maven-3.9.9/conf/settings.xml
+```
+
+4. Проверим `mvn --version`
+```sh
+mvn --version
+```
+ответ
+```
+Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+Maven home: /home/lamer/apache-maven-3.9.9
+Java version: 11, vendor: Oracle Corporation, runtime: /opt/jdk/openjdk-11+28_linux
+Default locale: ru_RU, platform encoding: UTF-8
+OS name: "linux", version: "3.10.0-1160.119.1.el7.x86_64", arch: "amd64", family: "unix"
+```
+
+5.````
+```sh
+mkdir mvn
+nano pom.xml
+```
+### Основная часть
+1. Поменяем в `pom.xml` блок с зависимостями под наш артефакт из первого пункта задания для Nexus (java с версией 8_282)
+содержимое файла pom.xml
+```
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.netology.app</groupId>
+  <artifactId>simple-app</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <repositories>
+    <repository>
+      <id>my-repo</id>
+      <name>maven-public</name>
+      <url>http://89.169.138.205:8081/repository/maven-public/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>netology</groupId>
+      <artifactId>java</artifactId>
+      <version>8_282</version>
+      <classifier>distrib</classifier>
+      <type>tar.gz</type>
+    </dependency>
+  </dependencies>
+</project>
+```
+
+![рис 30](https://github.com/ysatii/process-CI-CD/blob/main/img/img_30.jpg) 
+![рис 31](https://github.com/ysatii/process-CI-CD/blob/main/img/img_31.jpg) 
+![рис 32](https://github.com/ysatii/process-CI-CD/blob/main/img/img_32.jpg) 
+![рис 33](https://github.com/ysatii/process-CI-CD/blob/main/img/img_33.jpg) 
+![рис 34](https://github.com/ysatii/process-CI-CD/blob/main/img/img_34.jpg) 
+
+sha1 353bcc3ee1d8cc15f42ff3420cd6c14cae902353
+Скачивание произошло успешно!
+исправленный      [mvn/pom.xml](https://github.com/ysatii/process-CI-CD/blob/main/mvn/pom.xml)
+
 
 ### Как оформить решение задания
 
